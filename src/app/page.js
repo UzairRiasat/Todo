@@ -4,46 +4,42 @@ import React, { useState } from 'react';
 const App = () => {
     const [userInput, setUserInput] = useState('');
     const [list, setList] = useState([]);
-    const [editIndex, setEditIndex] = useState(null); // Track index of item to edit
+    const [editIndex, setEditIndex] = useState(null);
 
-    // Set a user input value
     const updateInput = (value) => {
         setUserInput(value);
     };
 
-    // Add or edit item
+
     const handleAction = () => {
-        if (userInput.trim() === '') return; // Avoid adding empty items
+        if (userInput.trim() === '') return; 
 
         if (editIndex !== null) {
-            // Edit existing item
             const updatedList = list.map((item, index) =>
                 index === editIndex ? { ...item, value: userInput } : item
             );
             setList(updatedList);
-            setEditIndex(null); // Reset edit mode
+            setEditIndex(null); 
         } else {
-            // Add new item
             const newItem = {
-                id: Math.random(), // Consider using a more reliable ID generator
+                id: Math.random(),
                 value: userInput,
             };
             setList([...list, newItem]);
         }
 
-        setUserInput(''); // Clear input field
+        setUserInput(''); 
     };
 
-    // Function to delete item from list using id to delete
     const deleteItem = (id) => {
         const updatedList = list.filter((item) => item.id !== id);
         setList(updatedList);
     };
 
-    // Function to enable editing mode
+    
     const startEdit = (index) => {
         setUserInput(list[index].value);
-        setEditIndex(index); // Set the index of the item to be edited
+        setEditIndex(index); 
     };
 
     return (
@@ -113,7 +109,7 @@ const App = () => {
                 {list.length > 0 ? (
                     list.map((item, index) => (
                         <div
-                            key={item.id} // Use the unique id as the key
+                            key={item.id} 
                             style={{
                                 display: 'flex',
                                 justifyContent: 'space-between',
